@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mağaza Paneli</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+        }
+        .sidebar {
+            width: 250px;
+            background: #2c3e50;
+            color: white;
+            padding: 1rem;
+            position: fixed;
+            height: 100%;
+            overflow-y: auto;
+        }
+        .sidebar h2 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            margin: 1rem 0;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .sidebar a:hover {
+            text-decoration: underline;
+        }
+        .main-content {
+            margin-left: 250px;
+            padding: 2rem;
+            width: calc(100% - 250px);
+        }
+        .summary {
+            background: #f4f4f4;
+            padding: 1rem;
+            border-radius: 10px;
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .summary-item {
+            flex: 1;
+            background: white;
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .summary-item h3 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+        .summary-item p {
+            margin: 0.5rem 0;
+            font-size: 1rem;
+            color: #555;
+        }
+        .store-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+        .store-card {
+            background: #f4f4f4;
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .store-card h3 {
+            margin: 0;
+            font-size: 1.25rem;
+        }
+        .store-card p {
+            margin: 0.5rem 0;
+            color: #555;
+            font-size: 1rem;
+        }
+        .store-card .status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .store-card .status .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        .dot.green {
+            background: green;
+        }
+        .dot.red {
+            background: red;
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                position: static;
+                width: 100%;
+                height: auto;
+            }
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Menu</h2>
+        <a onclick="scrollToSection('dashboard')">Gösterge Paneli</a>
+        <a onclick="scrollToSection('stores')">Mağazalar</a>
+        <a onclick="scrollToSection('details')">Mağaza Detay Yönetimi</a>
+        <a onclick="scrollToSection('contracts')">Sözleşme Yönetimi</a>
+        <a onclick="scrollToSection('settings')">Ayarlar</a>
+    </div>
+    <div class="main-content" id="dashboard">
+        <div class="summary">
+            <div class="summary-item">
+                <h3>₺300,000</h3>
+                <p>Toplam Gelir</p>
+            </div>
+            <div class="summary-item">
+                <h3>15</h3>
+                <p>Sözleşmesi Devam Eden Dükkanlar</p>
+            </div>
+            <div class="summary-item">
+                <h3>3</h3>
+                <p>Sözleşmesi Bu Ay Bitecek</p>
+            </div>
+        </div>
+        <section class="store-list" id="stores">
+            <div class="store-card">
+                <h3>Zen Pırlanta</h3>
+                <p>Adres: Moda Caddesi No: 5, Kadıköy, İstanbul</p>
+                <p>Kat: 1</p>
+                <p>Dükkan No: 101</p>
+                <p>Ödeme Dönemi: Aylık</p>
+                <p>Kira Ücreti: ₺10,000</p>
+                <div class="status">
+                    <span class="dot green"></span>
+                    <span>Devam Ediyor</span>
+                </div>
+            </div>
+            <div class="store-card">
+                <h3>Gratis</h3>
+                <p>Adres: Kuzguncuk Sokak No: 12, Üsküdar, İstanbul</p>
+                <p>Kat: 2</p>
+                <p>Dükkan No: 202</p>
+                <p>Ödeme Dönemi: Aylık</p>
+                <p>Kira Ücreti: ₺12,000</p>
+                <div class="status">
+                    <span class="dot red"></span>
+                    <span>Sözleşmesi Bitti</span>
+                </div>
+            </div>
+            <div class="store-card">
+                <h3>Stradivarius</h3>
+                <p>Adres: Çamlık Mahallesi No: 4, Ataşehir, İstanbul</p>
+                <p>Kat: 3</p>
+                <p>Dükkan No: 303</p>
+                <p>Ödeme Dönemi: Aylık</p>
+                <p>Kira Ücreti: ₺15,000</p>
+                <div class="status">
+                    <span class="dot green"></span>
+                    <span>Devam Ediyor</span>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script>
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    </script>
+</body>
+</html>
